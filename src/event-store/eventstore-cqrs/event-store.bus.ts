@@ -200,7 +200,8 @@ export class EventStoreBus {
       return;
     }
     const data = JSON.parse(event.data.toString());
-    const metadata = JSON.parse(event.metadata.toString());
+    const metadataString = event.metadata.toString();
+    const metadata = metadataString=="" ? {} : JSON.parse(event.metadata.toString());
     this.subject$.next(this.eventHandlers[event.eventType](data, metadata, event.eventId, event.eventStreamId, new Date(event.created)));
   }
 
